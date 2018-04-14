@@ -7,7 +7,7 @@ from datetime import date
 
 
 class Match(models.Model):
-    id = models.IntegerField()
+    id = models.AutoField(primary_key=True)
     team1 = models.TextField()
     team2 = models.TextField()
     fixture = models.TextField()
@@ -34,8 +34,10 @@ class Valoration(models.Model):
     user = models.ForeignKey(User, default=1)
     date = models.DateField(default=date.today)
 
+    """
     class Meta:
         abstract = True
+    """
 
 
 """

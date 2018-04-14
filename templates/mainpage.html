@@ -1,0 +1,12 @@
+{% extends "basepage.html" %}
+{% block content %}
+{% if user.username %}
+<p>Benvingut {{ user.username }}!
+Puntua les actuacions dels jugadors de cada partit
+</p>
+{% else %}
+<p>Hola amic!
+T'has d'identificar <a href="/login/">Login</a>
+per accedir a l'aplicació.</p>
+{% endif %}
+{% endblock %}
