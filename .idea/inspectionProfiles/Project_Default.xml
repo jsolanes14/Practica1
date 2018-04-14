@@ -1,0 +1,32 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredPackages">
+        <value>
+          <list size="19">
+            <item index="0" class="java.lang.String" itemvalue="pbr" />
+            <item index="1" class="java.lang.String" itemvalue="elementtree" />
+            <item index="2" class="java.lang.String" itemvalue="python-Levenshtein" />
+            <item index="3" class="java.lang.String" itemvalue="reportlab" />
+            <item index="4" class="java.lang.String" itemvalue="MySQL-python" />
+            <item index="5" class="java.lang.String" itemvalue="pycairo" />
+            <item index="6" class="java.lang.String" itemvalue="pysqlite" />
+            <item index="7" class="java.lang.String" itemvalue="futures" />
+            <item index="8" class="java.lang.String" itemvalue="pycrypto" />
+            <item index="9" class="java.lang.String" itemvalue="python-ldap" />
+            <item index="10" class="java.lang.String" itemvalue="psutil" />
+            <item index="11" class="java.lang.String" itemvalue="simplejson" />
+            <item index="12" class="java.lang.String" itemvalue="PyXML" />
+            <item index="13" class="java.lang.String" itemvalue="ZSI" />
+            <item index="14" class="java.lang.String" itemvalue="PIL" />
+            <item index="15" class="java.lang.String" itemvalue="scandir" />
+            <item index="16" class="java.lang.String" itemvalue="mercurial" />
+            <item index="17" class="java.lang.String" itemvalue="lxml" />
+            <item index="18" class="java.lang.String" itemvalue="Markdown" />
+          </list>
+        </value>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>
