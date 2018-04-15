@@ -4,4 +4,5 @@ import models
 
 admin.site.register(models.Match)
 admin.site.register(models.Player)
-admin.site.register(models.Valoration)
+admin.site.register(models.PlayerValoration)
+admin.site.register(models.Pronostic)
