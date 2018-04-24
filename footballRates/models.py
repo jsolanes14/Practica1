@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django.contrib.auth.models import User
-from django.core.urlresolvers import reverse
+# from django.core.urlresolvers import reverse
 from datetime import date
 
 
@@ -18,7 +18,7 @@ class Match(models.Model):
     resultat = str(golslocal)+" - "+str(golsvisitant)
 
     def __unicode__(self):
-        return str(self.competicio)+" "+str(self.jornada)+" "+str(self.id)
+        return "id: " + str(self.id)+" jornada: "+str(self.jornada)+" competicio:"+str(self.competicio)
 
 
 class Player(models.Model):
@@ -27,7 +27,8 @@ class Player(models.Model):
     edat = models.IntegerField(default=20)
     nacionalitat = models.TextField(max_length=20, default="")
     POS_CHOICES = ((1, 'Porter'), (2, 'Defensa'), (3, 'Migcampista'), (4, 'Davanter'))
-    posicio = models.PositiveSmallIntegerField('Posicio (principal)', blank=False, default=3, choices=POS_CHOICES)
+    posicio = models.PositiveSmallIntegerField(
+        'Posicio (principal)', blank=False, default=3, choices=POS_CHOICES)
     dorsal = models.IntegerField(default=10)
 
     def __unicode__(self):
@@ -36,7 +37,8 @@ class Player(models.Model):
 
 class PlayerValoration(models.Model):
     RATING_CHOICES = ((1, 'one'), (2, 'two'), (3, 'three'), (4, 'four'), (5, 'five'))
-    rating = models.PositiveSmallIntegerField('Rating (stars)', blank=False, default=3, choices=RATING_CHOICES)
+    rating = models.PositiveSmallIntegerField(
+        'Rating (stars)', blank=False, default=3, choices=RATING_CHOICES)
     comment = models.TextField(blank=True, null=True)
     user = models.ForeignKey(User, default=1)
     date = models.DateField(default=date.today)
@@ -49,7 +51,8 @@ class PlayerValoration(models.Model):
 
 class Pronostic(models.Model):
     PRONOSTICS_CHOICES = ((1, '1 Local'), (2, 'X Empat'), (3, '2 Visitant'))
-    pronosticPartit = models.PositiveSmallIntegerField('Pronostic del partit', blank=False, default=2, choices=PRONOSTICS_CHOICES)
+    pronosticPartit = models.PositiveSmallIntegerField(
+        'Pronostic del partit', blank=False, default=2, choices=PRONOSTICS_CHOICES)
     comment = models.TextField(blank=True, null=True)
     user = models.ForeignKey(User, default=1)
     date = models.DateField(default=date.today)
@@ -57,5 +60,3 @@ class Pronostic(models.Model):
 
     def __unicode__(self):
         return str(self.match.id)+" "+str(self.pronosticPartit)
-
-

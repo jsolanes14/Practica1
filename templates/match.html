@@ -1,0 +1,15 @@
+<html>
+  <head>
+  <title>MATCHES</title>
+  </head>
+<body>
+  <h1>Matches</h1>
+  <ul>
+  {% for m in match_list%}
+
+  {{m.local}} vs {{m.visitant}} ---------------->    {{m.data}}
+
+  {% endfor %}
+  </ul>
+</body>
+</html>
