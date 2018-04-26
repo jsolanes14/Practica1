@@ -27,6 +27,8 @@ DEBUG = True
 
 # Application definition
 
+ALLOWED_HOSTS = ['*****']
+
 INSTALLED_APPS = [
     'footballRates',
     'django.contrib.admin',
