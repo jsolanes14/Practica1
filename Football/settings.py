@@ -25,9 +25,6 @@ SECRET_KEY = 'mvavb0w!un(j=utt%*(v#0&zftc(87epj)21%ozo!-uyqgs(*t'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [’*****’]
-
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -100,7 +97,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 # docker settings?
-DISABLE_COLLECTSTATIC=1
+DISABLE_COLLECTSTATIC = 1
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
