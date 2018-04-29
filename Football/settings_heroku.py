@@ -1,12 +1,13 @@
 from .settings import *
 import dj_database_url
+import django_heroku
 
 # IMPORTANT: to enable these settings in Heroku, set the corresponding environment variable using:
-# $> heroku config:set DJANGO_SETTINGS_MODULE=myrecommendations.settings_heroku
+# $> heroku config:set DJANGO_SETTINGS_MODULE=footballRates.settings_heroku
 
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['practica1pw.herokuapp.com/']
+ALLOWED_HOSTS = ['practica1pw.herokuapp.com']
 
 
 MIDDLEWARE += [
@@ -24,3 +25,5 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # https://warehouse.python.org/project/whitenoise/
 
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
+django_heroku.settings(locals())

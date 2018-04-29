@@ -18,6 +18,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'mvavb0w!un(j=utt%*(v#0&zftc(87epj)21%ozo!-uyqgs(*t'
@@ -47,7 +53,16 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware'
 ]
+
+# MIDDLEWARE_CLASSES = (
+# Simplified static file serving.
+# https://warehouse.python.org/project/whitenoise/
+#    'whitenoise.middleware.WhiteNoiseMiddleware',
+#   )
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 ROOT_URLCONF = 'Football.urls'
 
