@@ -52,7 +52,7 @@ class PlayerValoration(models.Model):
     match = models.ForeignKey(MatchEnded)
 
     def __unicode__(self):
-        return "Jugador: " + self.player.name+", valoracio: " + str(self.match.jornada)
+        return "Jugador: " + self.player.nom+", valoracio: " + str(self.match)
 
 
 class Pronostic(models.Model):
@@ -64,6 +64,9 @@ class Pronostic(models.Model):
     date = models.DateField(default=date.today)
     match = models.ForeignKey(Match)
 
+    def __unicode__(self):
+        return str(self.match) + " pronostic--> " + str(self.pronosticPartit)
+
 
 class Cronica(models.Model):
     comment = models.TextField(blank=True, null=True)
@@ -72,4 +75,4 @@ class Cronica(models.Model):
     match = models.ForeignKey(MatchEnded)
 
     def __unicode__(self):
-        return "id partit: " + str(self.match.id)+", pronostic: "+str(self.pronosticPartit)
+        return "Cronica de " + str(self.user) + " del partit " + str(self.match)
