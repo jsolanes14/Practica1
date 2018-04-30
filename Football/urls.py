@@ -24,7 +24,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^matches/', fv.MatchListView.as_view(), name='Match'),
     url(r'^pronostics/', fv.PronosticListView.as_view(), name='Pronostic'),
-    url(r'^', login, name='login'), 
+    url(r'^', login, name='login'),
     url(r'^accounts/login/$', login, name='login'),
     url(r'^accounts/logout/$', logout, name='logout'),
 

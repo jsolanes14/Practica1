@@ -13,12 +13,18 @@ class Match(models.Model):
     jornada = models.IntegerField(default=0)
     competicio = models.TextField(max_length=30, default="")
     data = models.DateField(default=date.today)
-    golslocal = models.IntegerField(default=0)
-    golsvisitant = models.IntegerField(default=0)
-    resultat = str(golslocal)+" - "+str(golsvisitant)
 
     def __unicode__(self):
-        return "id: " + str(self.id)+" jornada: "+str(self.jornada)+" competicio:"+str(self.competicio)
+        return "id: " + str(self.id)+" jornada: "+str(self.jornada)+" competicio: "+str(self.competicio)
+
+
+class MatchEnded(models.Model):
+    match = models.ForeignKey(Match)
+    golslocal = models.IntegerField(default=0)
+    golsvisitant = models.IntegerField(default=0)
+
+    def __unicode__(self):
+        return str(self.match) + " RESULTAT: " + str(self.golslocal) + "-" + str(self.golsvisitant)
 
 
 class Player(models.Model):
@@ -32,7 +38,7 @@ class Player(models.Model):
     dorsal = models.IntegerField(default=10)
 
     def __unicode__(self):
-        return u"%s" % self.nom
+        return "%s" % self.nom
 
 
 class PlayerValoration(models.Model):
@@ -43,10 +49,10 @@ class PlayerValoration(models.Model):
     user = models.ForeignKey(User, default=1)
     date = models.DateField(default=date.today)
     player = models.ForeignKey(Player)
-    match = models.ForeignKey(Match)
+    match = models.ForeignKey(MatchEnded)
 
     def __unicode__(self):
-        return self.player.name+" "+str(self.match.jornada)
+        return "Jugador: " + self.player.name+", valoracio: " + str(self.match.jornada)
 
 
 class Pronostic(models.Model):
@@ -58,5 +64,12 @@ class Pronostic(models.Model):
     date = models.DateField(default=date.today)
     match = models.ForeignKey(Match)
 
+
+class Cronica(models.Model):
+    comment = models.TextField(blank=True, null=True)
+    user = models.ForeignKey(User, default=1)
+    date = models.DateField(default=date.today)
+    match = models.ForeignKey(MatchEnded)
+
     def __unicode__(self):
-        return str(self.match.id)+" "+str(self.pronosticPartit)
+        return "id partit: " + str(self.match.id)+", pronostic: "+str(self.pronosticPartit)

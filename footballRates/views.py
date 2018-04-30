@@ -11,18 +11,16 @@ from models import Match, Player, PlayerValoration, Pronostic
 
 class MatchListView(generic.ListView):
     model = Match
-    context_object_name= 'match_list'
+    context_object_name = 'match_list'
     template_name = 'match.html'
 
 
 class PronosticListView(generic.ListView):
     model = Pronostic
-    context_object_name= 'pronostic_list'
+    context_object_name = 'pronostic_list'
     template_name = 'pronostic.html'
 
 
-"""
 class BasePageView(generic.DetailView):
     model = Match
     template_name = 'basepage.html'
-    """

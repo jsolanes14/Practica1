@@ -3,6 +3,8 @@ from django.contrib import admin
 import models
 
 admin.site.register(models.Match)
+admin.site.register(models.MatchEnded)
 admin.site.register(models.Player)
 admin.site.register(models.PlayerValoration)
 admin.site.register(models.Pronostic)
+admin.site.register(models.Cronica)

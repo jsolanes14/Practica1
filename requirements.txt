@@ -1,4 +1,4 @@
-Django==1.11.10
+Django==1.11.11
 behave==1.2.6
 splinter==0.7.7
 Pillow==5.0.0

@@ -33,7 +33,7 @@ DEBUG = True
 
 # Application definition
 
-ALLOWED_HOSTS = ['*****']
+ALLOWED_HOSTS = ['*****', '127.0.0.1', 'practica1pw.herokuapp.com']
 
 INSTALLED_APPS = [
     'footballRates',
@@ -59,8 +59,8 @@ MIDDLEWARE = [
 # MIDDLEWARE_CLASSES = (
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
-#    'whitenoise.middleware.WhiteNoiseMiddleware',
-#   )
+# 'whitenoise.middleware.WhiteNoiseMiddleware',
+# )
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
