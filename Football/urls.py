@@ -14,18 +14,24 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.contrib import admin
 from django.contrib.auth.views import login, logout
+
+from django.views.generic import RedirectView
+from django.views.static import serve
+from django.conf import settings
 
 import footballRates.views as fv
 
 urlpatterns = [
+    # url(r'^$', RedirectView.as_view(pattern_name:'
     url(r'^admin/', admin.site.urls),
+    # url(r'^footballRates/', include('footballRates.urls', namespace='footballRates')),
     url(r'^matches/', fv.MatchListView.as_view(), name='Match'),
     url(r'^pronostics/', fv.PronosticListView.as_view(), name='Pronostic'),
-    url(r'^', login, name='login'), 
-    url(r'^accounts/login/$', login, name='login'),
-    url(r'^accounts/logout/$', logout, name='logout'),
+    url(r'^login/', login, name='login'),
+    url(r'^logout/', logout, name='logout'),
+    url(r'^accounts/profile/', fv.MainPageView.as_view(), name='mainpage')
 
 ]
