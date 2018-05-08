@@ -25,6 +25,7 @@ from django.conf import settings
 import footballRates.views as fv
 
 urlpatterns = [
+<<<<<<< HEAD
     # url(r'^$', RedirectView.as_view(pattern_name:'
     url(r'^admin/', admin.site.urls),
     # url(r'^footballRates/', include('footballRates.urls', namespace='footballRates')),
@@ -33,5 +34,12 @@ urlpatterns = [
     url(r'^login/', login, name='login'),
     url(r'^logout/', logout, name='logout'),
     url(r'^accounts/profile/', fv.MainPageView.as_view(), name='mainpage')
+=======
+    url(r'^matches/', fv.MatchListView.as_view(), name='Match'),
+    url(r'^pronostics/', fv.PronosticListView.as_view(), name='Pronostic'),
+    url(r'^', admin.site.urls),
+    url(r'^login/', login, name='login'),
+    url(r'^logout/', logout, name='logout'),
+>>>>>>> origin
 
 ]

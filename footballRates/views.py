@@ -46,6 +46,12 @@ class PronosticListView(generic.ListView):
     template_name = 'pronostic.html'
 
 
+<<<<<<< HEAD
 class MainPageView(generic.ListView):
     model= Pronostic
     template_name = 'mainpage.html'
+=======
+class BasePageView(generic.DetailView):
+    model = Match
+    template_name = 'basepage.html'
+>>>>>>> origin
