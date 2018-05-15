@@ -45,13 +45,6 @@ class PronosticListView(generic.ListView):
     context_object_name = 'pronostic_list'
     template_name = 'pronostic.html'
 
-
-<<<<<<< HEAD
 class MainPageView(generic.ListView):
     model= Pronostic
     template_name = 'mainpage.html'
-=======
-class BasePageView(generic.DetailView):
-    model = Match
-    template_name = 'basepage.html'
->>>>>>> origin
