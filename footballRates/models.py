@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django.contrib.auth.models import User
-# from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse
 from datetime import date
 
 
@@ -17,6 +17,23 @@ class Match(models.Model):
     def __unicode__(self):
         return "id: " + str(self.id)+" jornada: "+str(self.jornada)+" competicio: "+str(self.competicio)
 
+    def get_absolute_url(self):
+        return reverse('footballRates:match_detail', kwargs={'pk': self.pk})
+
+
+class Pronostic(models.Model):
+    id = models.AutoField(primary_key=True)
+    PRONOSTICS_CHOICES = ((1, '1 Local'), (2, 'X Empat'), (3, '2 Visitant'))
+    pronosticPartit = models.PositiveSmallIntegerField(
+        'Pronostic del partit', blank=False, default=2, choices=PRONOSTICS_CHOICES)
+    comment = models.TextField(blank=True, null=True)
+    usuari = models.ForeignKey(User, default=1)
+    date = models.DateField(default=date.today)
+    match = models.ForeignKey(Match)
+
+    def __unicode__(self):
+        return str(self.match) + " pronostic--> " + str(self.pronosticPartit)
+
 
 class MatchEnded(models.Model):
     match = models.ForeignKey(Match)
@@ -25,6 +42,16 @@ class MatchEnded(models.Model):
 
     def __unicode__(self):
         return str(self.match) + " RESULTAT: " + str(self.golslocal) + "-" + str(self.golsvisitant)
+
+
+class Cronica(models.Model):
+    comment = models.TextField(blank=True, null=True)
+    user = models.ForeignKey(User, default=1)
+    date = models.DateField(default=date.today)
+    match = models.ForeignKey(MatchEnded)
+
+    def __unicode__(self):
+        return "Cronica de " + str(self.user) + " del partit " + str(self.match)
 
 
 class Player(models.Model):
@@ -38,7 +65,7 @@ class Player(models.Model):
     dorsal = models.IntegerField(default=10)
 
     def __unicode__(self):
-        return "%s" % self.nom
+        return "Jugador: " + self.nom + " del " + self.equip
 
 
 class PlayerValoration(models.Model):
@@ -53,26 +80,3 @@ class PlayerValoration(models.Model):
 
     def __unicode__(self):
         return "Jugador: " + self.player.nom+", valoracio: " + str(self.match)
-
-
-class Pronostic(models.Model):
-    PRONOSTICS_CHOICES = ((1, '1 Local'), (2, 'X Empat'), (3, '2 Visitant'))
-    pronosticPartit = models.PositiveSmallIntegerField(
-        'Pronostic del partit', blank=False, default=2, choices=PRONOSTICS_CHOICES)
-    comment = models.TextField(blank=True, null=True)
-    user = models.ForeignKey(User, default=1)
-    date = models.DateField(default=date.today)
-    match = models.ForeignKey(Match)
-
-    def __unicode__(self):
-        return str(self.match) + " pronostic--> " + str(self.pronosticPartit)
-
-
-class Cronica(models.Model):
-    comment = models.TextField(blank=True, null=True)
-    user = models.ForeignKey(User, default=1)
-    date = models.DateField(default=date.today)
-    match = models.ForeignKey(MatchEnded)
-
-    def __unicode__(self):
-        return "Cronica de " + str(self.user) + " del partit " + str(self.match)

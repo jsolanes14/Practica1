@@ -1,0 +1,15 @@
+<html>
+  <head>
+  <title>ENDED MATCHES</title>
+  </head>
+<body>
+  <h1>Ended Matches</h1>
+  <ul>
+  {% for m in matchEnded_list%}
+  <p>
+  {{m.match}} ---------------->    {{m.match.local}} {{m.golslocal}} - {{m.match.visitant}} {{m.golsvisitant}}
+</p>
+  {% endfor %}
+  </ul>
+</body>
+</html>

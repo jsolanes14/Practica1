@@ -1,0 +1,76 @@
+    {%  block  content  %}
+        <h1>
+
+
+        </h1>
+
+
+        <h2>      ID:        </h2>
+            <p>
+                {{  match.id  }}
+            </p>
+        <h2>            Local:        </h2>
+            <p>
+                {{  match.local  }}
+            </p>
+        <h2>            Visitant:        </h2>
+            <p>
+                {{  match.visitant  }}
+            </p>
+        <h2>            Jornada:        </h2>
+            <p>
+                {{  match.jornada  }}
+            </p>
+        <h2>            Competicio:        </h2>
+            <p>
+                {{  match.competicio  }}
+            </p>
+
+
+
+<h3>Pronostics</h3>
+    <ul>
+        {%  for  pronostic  in  match.pronostic_set.all  %}
+            <li>
+                <p>Pronostic: {{  pronostic.pronosticPartit  }} </p>
+                <p>{{  pronostic.comment  }}</p>
+                <p>{{  pronostic.match  }}</p>
+                <p> {{pronostic.usuari}} </p>
+
+                {% if user == pronostic.usuari %}
+                  <!--<a href="{%  url  'footballRates:pronostics_edit'  pronostic.id  %}">edit</a>-->
+                {% endif %}
+
+            </li>
+        {%  endfor  %}
+    </ul>
+
+
+<h3>Afegir Pronostic</h3>
+    <form action="{% url 'footballRates:pronostics_create' match.id %}" method="post">
+    {%  csrf_token  %}
+      Comentari:  <textarea  name="comment"  id="comment"  rows="2"></textarea>
+
+      <form>
+
+          <div>
+          <input type="radio" id="Guanya Local" name="contact" value="Guanya Local">
+          <label for="Guanya Local">Guanya Local</label>
+
+          <input type="radio" id="Empat" name="contact" value="Empat">
+          <label for="Empat">Empat</label>
+
+          <input type="radio" id="Guanya Visitant" name="contact" value="Guanya Visitant">
+          <label for="Guanya Visitant">Guanya Visitant</label>
+
+          </div>
+          <div>
+
+          <button class="btn btn-success" type="submit">Afegir Pronostic</button>
+
+          </div>
+      </form>
+
+        {%  endblock  %}
+    {%  block  footer  %}
+  {% endblock %}

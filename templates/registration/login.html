@@ -18,14 +18,11 @@
                 <td>{{ form.password }}</td>
             </tr>
             <tr>
-                <td><input type="hidden" name="next" value="{{ mainpage.html }}"/></td>
+                <td><input type="hidden" name="next" value="{{ next }}"/></td>
             </tr>
         </table>
 
-        <div class="form-group">
-            <button type="submit" class="btn btn-success">Login</button>
-            <a class="btn btn-danger" href="{{ next }}">Cancel</a>
-        </div>
+          <input type="submit" value="login" />
 
         {% csrf_token %}
     </form>

@@ -1,57 +1,71 @@
 from django.conf.urls import url
-from django.contrib.auth.decorators import login_required
+# from django.contrib.auth.decorators import login_required
 
-from django.utils import timezone
 from django.views.generic import DetailView, ListView, UpdateView
-from models import *
-from forms import *
-from views import *
+from django.views.generic.base import TemplateView
+from models import Match, MatchEnded, Player, Pronostic, Cronica, PlayerValoration
+from forms import PronosticForm, CronicaForm, PlayerValorationForm
+from views import MatchDetailView, MatchEndedDetailView, PlayerDetailView, pronostic, cronica, playervaloration
+
 urlpatterns = [
-    # List latest 5 restaurants: /myrestaurants/
-    url(r'^$',
+    url(r'^$', TemplateView.as_view(template_name='base.html'), name='home'),
+    url(r'^home/$', TemplateView.as_view(template_name='base.html'), name='home'),
+
+    url(r'^matches/$',
         ListView.as_view(
-            context_object_name='latest_restaurant_list',
-            template_name='myrestaurants/restaurant_list.html'),
-        name='restaurant_list'),
+            queryset=Match.objects.all,
+            context_object_name='match_list',
+            template_name='match.html'),
+        name='match'),
 
-    # Restaurant details, ex.: /myrestaurants/restaurants/1/
-    url(r'^restaurants/(?P<pk>\d+)/$',
-        RestaurantDetail.as_view(),
-        name='restaurant_detail'),
+    url(r'^matchesEnded/$',
+        ListView.as_view(
+            queryset=MatchEnded.objects.all,
+            context_object_name='matchEnded_list',
+            template_name='matchEnded.html'),
+        name='matchEnded'),
 
-    # Restaurant dish details, ex: /myrestaurants/restaurants/1/dishes/1/
-    url(r'^restaurants/(?P<pkr>\d+)/dishes/(?P<pk>\d+)/$',
-        DetailView.as_view(
-            model=Dish,
-            template_name='myrestaurants/dish_detail.html'),
-        name='dish_detail'),
+    url(r'^players/$',
+        ListView.as_view(
+            queryset=Player.objects.all,
+            context_object_name='player_list',
+            template_name='player.html'),
+        name='player'),
 
-    # Create a restaurant, /myrestaurants/restaurants/create/
-    url(r'^restaurants/create/$',
-        RestaurantCreate.as_view(),
-        name='restaurant_create'),
 
-    # Edit restaurant details, ex.: /myrestaurants/restaurants/1/edit/
-    url(r'^restaurants/(?P<pk>\d+)/edit/$',
-        LoginRequiredCheckIsOwnerUpdateView.as_view(
-            model=Restaurant,
-            form_class=RestaurantForm),
-        name='restaurant_edit'),
+    url(r'^matches/(?P<pk>\d+)/$',
+        MatchDetailView.as_view(),
+        name='match_detail'),
 
-    # Create a restaurant dish, ex.: /myrestaurants/restaurants/1/dishes/create/
-    url(r'^restaurants/(?P<pk>\d+)/dishes/create/$',
-        DishCreate.as_view(),
-        name='dish_create'),
+    url(r'^matchesEnded/(?P<pk>\d+)/$',
+        MatchEndedDetailView.as_view(),
+        name='matchEnded_detail'),
 
-    # Edit restaurant dish details, ex.: /myrestaurants/restaurants/1/dishes/1/edit/
-    url(r'^restaurants/(?P<pkr>\d+)/dishes/(?P<pk>\d+)/edit/$',
-        LoginRequiredCheckIsOwnerUpdateView.as_view(
-            model=Dish,
-            form_class=DishForm),
-        name='dish_edit'),
+    url(r'^players/(?P<pk>\d+)/$',
+        PlayerDetailView.as_view(),
+        name='players_detail'),
 
-    # Create a restaurant review, ex.: /myrestaurants/restaurants/1/reviews/create/
-    url(r'^restaurants/(?P<pk>\d+)/reviews/create/$',
-        review,
-        name='review_create'),
+
+
+    url(r'^matches/(?P<pk>\d+)/pronostics/create/$',
+        pronostic,
+        name='pronostics_create'),
+
+    url(r'^matchesEnded/(?P<pk>\d+)/cronica/create/$',
+        cronica,
+        name='cronica_create'),
+
+    url(r'^players/(?P<pk>\d+)/playervaloration/create/$',
+        playervaloration,
+        name='playersvaloration_create'),
+
+
+
+#    url(r'^matches/(?P<pk>\d+)/pronostics/(?P<pk>\d+)/edit/$',
+#        UpdateView.as_view(
+#            model=Pronostic,
+#            template_name='form.html',
+#            form_class=PronosticForm),
+#        name='pronostics_edit'),
+
 ]

@@ -2,49 +2,108 @@
 from __future__ import unicode_literals
 
 # from django.shortcuts import render
-from django.views import generic
-from models import Match, Player, PlayerValoration, Pronostic
-
-from django.contrib.auth.decorators import login_required
-from django.core.exceptions import PermissionDenied
-from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
+from django.views import generic
+from models import Match, MatchEnded, Player, PlayerValoration, Pronostic, Cronica
+from forms import PlayerValorationForm, PronosticForm, CronicaForm
+
+from django.shortcuts import render_to_response, reverse, render
+
 from django.shortcuts import get_object_or_404
-from django.utils.decorators import method_decorator
-from django.views.generic import DetailView
-from django.views.generic.edit import CreateView, UpdateView
 
 # Create your views here.
 
-class LoginRequiredMixin(object):
-    @method_decorator(login_required())
-    def dispatch(self, *args, **kwargs):
-        return super(LoginRequiredMixin, self).dispatch(*args, **kwargs)
 
-class CheckIsOwnerMixin(object):
-    def get_object(self, *args, **kwargs):
-        obj = super(CheckIsOwnerMixin, self).get_object(*args, **kwargs)
-        if not obj.user == self.request.user:
-            raise PermissionDenied
-        return obj
-
-class LoginRequiredCheckIsOwnerUpdateView(LoginRequiredMixin, CheckIsOwnerMixin, UpdateView):
-    template_name = 'footballRates/login.html'
+def mainpage(request):
+    return render(request, 'base.html')
 
 
-#HTML
-
-class MatchListView(generic.ListView):
+class MatchDetailView(generic.DetailView):
     model = Match
-    context_object_name = 'match_list'
-    template_name = 'match.html'
+    template_name = 'match_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(MatchDetailView, self).get_context_data(** kwargs)
+        context['PRONOSTICS_CHOICES'] = Pronostic.PRONOSTICS_CHOICES
+        return context
 
 
-class PronosticListView(generic.ListView):
+class MatchEndedDetailView(generic.DetailView):
+    model = MatchEnded
+    template_name = 'matchEnded_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(MatchEndedDetailView, self).get_context_data(** kwargs)
+        context['comment'] = Cronica.comment
+        return context
+
+
+class PlayerDetailView(generic.DetailView):
+    model = Player
+    template_name = 'player_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(MatchEndedDetailView, self).get_context_data(** kwargs)
+        context['RATING_CHOICES'] = PlayerValoration.RATING_CHOICES
+        return context
+
+
+class CreatePronostic(generic.CreateView):
     model = Pronostic
-    context_object_name = 'pronostic_list'
-    template_name = 'pronostic.html'
+    template_name = 'form.html'
+    form_class = PronosticForm
 
-class MainPageView(generic.ListView):
-    model= Pronostic
-    template_name = 'mainpage.html'
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super(CreatePronostic, self).form_valid(form)
+
+
+class CreateCronica(generic.CreateView):
+    model = Cronica
+    template_name = 'form.html'
+    form_class = CronicaForm
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super(CreateCronica, self).form_valid(form)
+
+
+class CreatePlayerValoration(generic.CreateView):
+    model = PlayerValoration
+    template_name = 'form.html'
+    form_class = PlayerValorationForm
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super(CreatePlayerValoration, self).form_valid(form)
+
+
+def pronostic(request, pk):
+    matchActual = get_object_or_404(Match, pk=pk)
+    pronostic = Pronostic(
+        comment=request.POST['comment'],
+        match=matchActual,
+        usuari=request.user
+    )
+    pronostic.save()
+    return HttpResponseRedirect(reverse('footballRates:match_detail', args=(matchActual.id,)))
+
+
+def cronica(request, pk):
+    matchEndedActual = get_object_or_404(MatchEnded, pk=pk)
+    cronica = Cronica(
+        comment=request.POST['comment'],
+        matchEnded=matchEndedActual
+    )
+    cronica.save()
+    return HttpResponseRedirect(reverse('footballRates:matchEnded_detail', args=(matchEndedActual.id,)))
+
+
+def playervaloration(request, pk):
+    playerActual = get_object_or_404(Player, pk=pk)
+    playervaloration = PlayerValoration(
+        comment=request.POST['comment'],
+        player=playerActual
+    )
+    playervaloration.save()
+    return HttpResponseRedirect(reverse('footballRates:player_detail', args=(playerActual.id,)))
