@@ -6,9 +6,7 @@ from django.http import HttpResponseRedirect
 from django.views import generic
 from models import Match, MatchEnded, Player, PlayerValoration, Pronostic, Cronica
 from forms import PlayerValorationForm, PronosticForm, CronicaForm
-
 from django.shortcuts import render_to_response, reverse, render
-
 from django.shortcuts import get_object_or_404
 
 # Create your views here.

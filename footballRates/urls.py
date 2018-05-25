@@ -45,8 +45,6 @@ urlpatterns = [
         PlayerDetailView.as_view(),
         name='players_detail'),
 
-
-
     url(r'^matches/(?P<pk>\d+)/pronostics/create/$',
         pronostic,
         name='pronostics_create'),
@@ -59,13 +57,11 @@ urlpatterns = [
         playervaloration,
         name='playersvaloration_create'),
 
-
-
-#    url(r'^matches/(?P<pk>\d+)/pronostics/(?P<pk>\d+)/edit/$',
-#        UpdateView.as_view(
-#            model=Pronostic,
-#            template_name='form.html',
-#            form_class=PronosticForm),
-#        name='pronostics_edit'),
+    url(r'^matches/(?P<pk>\d+)/pronostics/edit/$',
+        UpdateView.as_view(
+            model=Pronostic,
+            template_name='form.html',
+            form_class=PronosticForm),
+        name='pronostics_edit'),
 
 ]
