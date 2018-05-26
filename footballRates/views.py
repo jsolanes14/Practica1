@@ -105,3 +105,8 @@ def playervaloration(request, pk):
     )
     playervaloration.save()
     return HttpResponseRedirect(reverse('footballRates:player_detail', args=(playerActual.id,)))
+
+def deletePronostic(request, pk):
+    pronostic = get_object_or_404(Pronostic, pk=pk)
+    pronostic.delete()
+    return render(request, 'delete.html')

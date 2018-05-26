@@ -26,5 +26,6 @@ urlpatterns = [
     url(r'^login/', login, name='login'),
     url(r'^accounts/profile/', mainpage, name='mainpage'),
     url(r'^logout/', logout, name='logout'),
+    
 
 ]

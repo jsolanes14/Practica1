@@ -24,8 +24,7 @@ class Match(models.Model):
 class Pronostic(models.Model):
     id = models.AutoField(primary_key=True)
     PRONOSTICS_CHOICES = ((1, '1 Local'), (2, 'X Empat'), (3, '2 Visitant'))
-    pronosticPartit = models.PositiveSmallIntegerField(
-        'Pronostic del partit', blank=False, default=2, choices=PRONOSTICS_CHOICES)
+    pronosticPartit = models.PositiveSmallIntegerField(null=True, blank=False, choices=PRONOSTICS_CHOICES)
     comment = models.TextField(blank=True, null=True)
     usuari = models.ForeignKey(User, default=1)
     date = models.DateField(default=date.today)
