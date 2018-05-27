@@ -127,8 +127,8 @@ def playervaloration(request, pk):
 
 def editPronostic(request, pk):
     pronostic = get_object_or_404(Pronostic, pk=pk)
-    pronostic.delete()
-    return render(request, 'editpronostic.html')
+    return HttpResponseRedirect('footballRates:editpronostic', args=(pronostic.id,))
+
 
 def editCronica(request, pk):
     pass
