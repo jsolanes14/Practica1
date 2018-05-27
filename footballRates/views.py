@@ -6,7 +6,7 @@ from django.http import HttpResponseRedirect
 from django.views import generic
 from models import Match, MatchEnded, Player, PlayerValoration, Pronostic, Cronica
 from forms import PlayerValorationForm, PronosticForm, CronicaForm
-from django.shortcuts import render_to_response, reverse, render
+from django.shortcuts import render_to_response, reverse, render, HttpResponse
 from django.shortcuts import get_object_or_404
 
 # Create your views here.
@@ -41,9 +41,11 @@ class PlayerDetailView(generic.DetailView):
     template_name = 'player_detail.html'
 
     def get_context_data(self, **kwargs):
-        context = super(MatchEndedDetailView, self).get_context_data(** kwargs)
+        context = super(PlayerDetailView, self).get_context_data(** kwargs)
         context['RATING_CHOICES'] = PlayerValoration.RATING_CHOICES
         return context
+
+########################################################
 
 
 class CreatePronostic(generic.CreateView):
@@ -75,15 +77,19 @@ class CreatePlayerValoration(generic.CreateView):
         form.instance.user = self.request.user
         return super(CreatePlayerValoration, self).form_valid(form)
 
+########################################################
+
 
 def pronostic(request, pk):
     matchActual = get_object_or_404(Match, pk=pk)
     pronostic = Pronostic(
         comment=request.POST['comment'],
+        pronosticPartit=request.POST['pronosticPartit'],
         match=matchActual,
         usuari=request.user
     )
     pronostic.save()
+
     return HttpResponseRedirect(reverse('footballRates:match_detail', args=(matchActual.id,)))
 
 
@@ -106,7 +112,36 @@ def playervaloration(request, pk):
     playervaloration.save()
     return HttpResponseRedirect(reverse('footballRates:player_detail', args=(playerActual.id,)))
 
+########################################################
+
+
+def editPronostic(request, pk):
+    pass
+
+
+def editCronica(request, pk):
+    pass
+
+
+def editPlayerValoration(request, pk):
+    pass
+
+
+########################################################
+
 def deletePronostic(request, pk):
     pronostic = get_object_or_404(Pronostic, pk=pk)
     pronostic.delete()
+    return render(request, 'delete.html')
+
+
+def deleteCronica(request, pk):
+    cronica = get_object_or_404(Cronica, pk=pk)
+    cronica.delete()
+    return render(request, 'delete.html')
+
+
+def deletePlayerValoration(request, pk):
+    playervaloration = get_object_or_404(PlayerValoration, pk=pk)
+    playervaloration.delete()
     return render(request, 'delete.html')

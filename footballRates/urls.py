@@ -4,12 +4,16 @@ from django.conf.urls import url
 from django.views.generic import DetailView, ListView, UpdateView
 from django.views.generic.base import TemplateView
 from models import Match, MatchEnded, Player, Pronostic, Cronica, PlayerValoration
-from forms import PronosticForm, CronicaForm, PlayerValorationForm
-from views import MatchDetailView, MatchEndedDetailView, PlayerDetailView, pronostic, cronica, playervaloration, deletePronostic
+# from forms import PronosticForm, CronicaForm, PlayerValorationForm
+from views import MatchDetailView, MatchEndedDetailView, PlayerDetailView, pronostic, cronica, playervaloration
+from views import editPronostic, editCronica, editPlayerValoration
+from views import deletePronostic, deleteCronica, deletePlayerValoration
 
 urlpatterns = [
     url(r'^$', TemplateView.as_view(template_name='base.html'), name='home'),
     url(r'^home/$', TemplateView.as_view(template_name='base.html'), name='home'),
+
+    ###################################################
 
     url(r'^matches/$',
         ListView.as_view(
@@ -32,6 +36,8 @@ urlpatterns = [
             template_name='player.html'),
         name='player'),
 
+    ###################################################
+
 
     url(r'^matches/(?P<pk>\d+)/$',
         MatchDetailView.as_view(),
@@ -45,6 +51,8 @@ urlpatterns = [
         PlayerDetailView.as_view(),
         name='players_detail'),
 
+    ##################################################
+
     url(r'^matches/(?P<pk>\d+)/pronostics/create/$',
         pronostic,
         name='pronostics_create'),
@@ -57,14 +65,35 @@ urlpatterns = [
         playervaloration,
         name='playersvaloration_create'),
 
+
+    ##################################################
+
     url(r'^matches/(?P<pk>\d+)/pronostics/edit/$',
-        UpdateView.as_view(
-            model=Pronostic,
-            template_name='pronostic.html',
-            form_class=PronosticForm),
+        editPronostic,
         name='pronostics_edit'),
 
-    url(r'^matches/(?P<pk>\d+)pronostic/delete/$',
+    url(r'^matchesEnded/(?P<pk>\d+)/cronica/edit/$',
+        editCronica,
+        name='cronica_edit'),
+
+    url(r'^matches/(?P<pk>\d+)/playervaloration/edit/$',
+        editPlayerValoration,
+        name='playervaloration_edit'),
+
+    ##################################################
+
+    url(r'^matches/(?P<pk>\d+)/pronostic/delete/$',
         deletePronostic,
-        name = 'pronostic_delete'),
+        name='pronostic_delete'),
+
+
+    url(r'^matcesEnded/(?P<pk>\d+)/cronica/delete/$',
+        deleteCronica,
+        name='cronica_delete'),
+
+
+    url(r'^matches/(?P<pk>\d+)/playervaloration/delete/$',
+        deletePlayerValoration,
+        name='playervaloration_delete'),
+
 ]

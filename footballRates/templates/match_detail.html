@@ -27,8 +27,11 @@
         <a class="botton" href="http://127.0.0.1:8000/matchesEnded/" target="_self">Partits acabats</a>
         <a class="botton" href="http://127.0.0.1:8000/players/" target="_self">Jugadors</a>
       </ul>
+
     </div>
     <div  id="post" class="post">
+
+
       <h3>Detalls Partit</h3>
       <table>
         <th>{{match.competicio}}</th>
@@ -37,6 +40,8 @@
         <td>Jornada: {{match.jornada}}</td>
       </table>
       <br></br>
+
+
       <h3>Llista de Pronostics</h3>
       <table>
         {%  for  pronostic  in  match.pronostic_set.all  %}
@@ -51,16 +56,17 @@
           </tr>
         {%  endfor  %}
       </table>
-      <br></br>
+
+
       <h3>Afegir Pronostic</h3>
       <form action="{% url 'footballRates:pronostics_create' match.id %}" method="post">
         {%  csrf_token  %}
           Comentari:  <textarea  name="comment"  id="comment"  rows="2"></textarea>
       <div>
         <fieldset>
-          <input type="radio" id="1" value="1"><label for="1">Local</label>
-          <input type="radio" id="2" value="X"><label for="2">Empat</label>
-          <input type="radio" id="3" value="2"><label for="3">Visitant</label>
+          <input type="radio" id="1" name="pronosticPartit" value="1"><label for="1">Local</label>
+          <input type="radio" id="2" name="pronosticPartit" value="0"><label for="2">Empat</label>
+          <input type="radio" id="3" name="pronosticPartit" value="2"><label for="3">Visitant</label>
         </fieldset>
       </div>
       <div>

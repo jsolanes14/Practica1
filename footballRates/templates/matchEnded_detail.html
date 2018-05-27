@@ -2,7 +2,7 @@
 <!DOCTYPE  html>
 <html>
   <head>
-    <title>MATCH DETAIL</title>
+    <title>MATCHENDED DETAIL</title>
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
@@ -29,39 +29,35 @@
       </ul>
     </div>
     <div  id="post" class="post">
+
+
       <h3>Detalls Partit</h3>
       <table>
-        <th>{{match.competicio}}</th>
-        <td>{{match.local}}</td>
-        <td>{{match.visitant}}</td>
-        <td>Jornada: {{match.jornada}}</td>
+      <th>{{matchEnded.match}}</th>
+      <td>{{matchEnded.golslocal}}</td>
+      <td>{{matchEnded.golsvisitant}}</td>
       </table>
-      <br></br>
+
+
       <h3>Llista de Croniques</h3>
       <table>
-        {%  for  cronica  in  match.cronica_set.all  %}
+        {%  for  cronica  in  matchEnded.cronica_set.all  %}
           <tr>
-            <th>{{cronica.user}}</th>
-            <td>{{cronica.date}}</td>
+            <th>{{cronica.usuari}}</th>
             <td>{{cronica.comment}}</td>
             {% if user == cronica.user %}
-              <td><a href="{%  url  'footballRates:cronica_edit'  cronica.match  %}">edit</a></td>
+              <td><a href="{%  url  'footballRates:cronica_edit'  cronica.id  %}">edit</a></td>
+              <td><a href="{%  url  'footballRates:cronica_delete'  cronica.id  %}">delete</a></td>
             {% endif %}
           </tr>
         {%  endfor  %}
       </table>
-      <br></br>
-      <h3>Afegir Cronica</h3>
-      <form action="{% url 'footballRates:cronica_create' match.id %}" method="post">
-        {%  csrf_token  %}
-          Comentari:  <textarea  name="comment"  id="comment"  rows="2"></textarea>
-      <div>
-          <button class="btn btn-success" type="submit">Afegir Cronica</button>
-      </div>
-      </form>
 
-      {%  block  footer  %}
-      {% endblock %}
-    </div>
+
+
+      <h3>Afegir Cronica</h3>
+
+
+
   </body>
 </html>

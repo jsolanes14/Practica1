@@ -2,7 +2,7 @@
 <!DOCTYPE  html>
 <html>
   <head>
-    <title>ENDED MATCHES</title>
+    <title>MATCHES</title>
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
@@ -10,7 +10,7 @@
   </head>
   <body>
     <div = class="page-header">
-      <h1>Partits acabats</h1>
+      <h1>Football Rates</h1>
       {%  block  header  %}
       {%  if  user.username  %}
           <h2><p>User:  {{  user.username  }}  |  <a class="logout" href="{%  url  'logout'  %}?next={{request.path}}">logout</a>
@@ -29,13 +29,40 @@
       </ul>
     </div>
     <div  id="post" class="post">
+
+
       <ul>
-        {% for m in matchEnded_list%}
-          <p>
-            {{m.match}} ---------------->    {{m.match.local}} {{m.golslocal}} - {{m.match.visitant}} {{m.golsvisitant}}
-          </p>
-        {% endfor %}
+        <table>
+          <tr>
+            <th>Partit</th>
+            <th>Gols locals</th>
+            <th>Gols visitants</th>
+          </tr>
+          {% for matchEnded in matchEnded_list %}
+          <tr>
+            <td><a href="{{matchEnded.id}}/">{{matchEnded.match}}</td>
+            <td>{{matchEnded.golslocal}}</td>
+            <td>{{matchEnded.golsvisitant}}</td>
+          </tr>
+          {% endfor %}
+        </table>
       </ul>
+    </div>
+
+    
+    <div  id="content">
+    {%  block  content  %}
+    {%  if  error_message  %}
+        <p>
+            <strong>{{  error_message  }}</strong>
+        </p>
+    {%  endif  %}
+    {%  endblock  %}
+    </div>
+    <div  id="footer">
+        {%  block  footer  %}
+
+        {%  endblock  %}
     </div>
   </body>
 </html>

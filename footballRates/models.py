@@ -15,7 +15,7 @@ class Match(models.Model):
     data = models.DateField(default=date.today)
 
     def __unicode__(self):
-        return "id: " + str(self.id)+" jornada: "+str(self.jornada)+" competicio: "+str(self.competicio)
+        return str(self.local) + " - " + str(self.visitant)
 
     def get_absolute_url(self):
         return reverse('footballRates:match_detail', kwargs={'pk': self.pk})
@@ -35,6 +35,7 @@ class Pronostic(models.Model):
 
 
 class MatchEnded(models.Model):
+    id = models.AutoField(primary_key=True)
     match = models.ForeignKey(Match)
     golslocal = models.IntegerField(default=0)
     golsvisitant = models.IntegerField(default=0)
@@ -44,6 +45,7 @@ class MatchEnded(models.Model):
 
 
 class Cronica(models.Model):
+    id = models.AutoField(primary_key=True)
     comment = models.TextField(blank=True, null=True)
     user = models.ForeignKey(User, default=1)
     date = models.DateField(default=date.today)
@@ -68,6 +70,7 @@ class Player(models.Model):
 
 
 class PlayerValoration(models.Model):
+    id = models.AutoField(primary_key=True)
     RATING_CHOICES = ((1, 'one'), (2, 'two'), (3, 'three'), (4, 'four'), (5, 'five'))
     rating = models.PositiveSmallIntegerField(
         'Rating (stars)', blank=False, default=3, choices=RATING_CHOICES)

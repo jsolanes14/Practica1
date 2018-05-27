@@ -1,0 +1,22 @@
+<html>
+<body>
+      <h3>Afegir Pronostic</h3>
+
+        {%  csrf_token  %}
+          Comentari:  <textarea  name="comment"  id="comment"  rows="2"></textarea>
+      <div>
+        <fieldset>
+          <input type="radio" id="1" name="pronosticPartit" value="1"><label for="1">Local</label>
+          <input type="radio" id="2" name="pronosticPartit" value="0"><label for="2">Empat</label>
+          <input type="radio" id="3" name="pronosticPartit" value="2"><label for="3">Visitant</label>
+        </fieldset>
+      </div>
+      <div>
+          <button class="btn btn-success" type="submit">Afegir Pronostic</button>
+      </div>
+      </form>
+
+      {%  block  footer  %}
+      {% endblock %}
+  </body>
+</html>
