@@ -1,0 +1,35 @@
+{%  load  staticfiles  %}
+<!DOCTYPE  html>
+<html  lang="en">
+  <head>
+      <title>Football Rates</title>
+      <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+      <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+      <link rel="stylesheet" href="{% static 'css/base.css' %}">
+      <link  rel="stylesheet"  href="{%  static  "style/base.css"  %}"  />
+  </head>
+  <body>
+    <div = class="page-header">
+      <h1>Football Rates</h1>
+      {%  block  header  %}
+      {%  if  user.username  %}
+          <h2><p>User:  {{  user.username  }}  |  <a class="logout" href="{%  url  'logout'  %}?next={{request.path}}">logout</a>
+          </p></h2>
+      {%  else  %}
+          <p><a class="logout" href="{%  url  'login'  %}?next={{request.path}}">login</a></p>
+      {%  endif  %}
+      {%  endblock  %}
+    </div>
+    <div class="menu_bar">
+      <ul class="noselect">
+        <a class="botton" href="/" target="_self">Home</a>
+        <a class="botton" href="http://127.0.0.1:8000/matches/" target="_self">Partits per jugar</a>
+        <a class="botton" href="http://127.0.0.1:8000/matchesEnded/" target="_self">Partits acabats</a>
+        <a class="botton" href="http://127.0.0.1:8000/players/" target="_self">Jugadors</a>
+      </ul>
+    </div>
+    <div  id="post" class="post">
+      <h3> Edit successfuly. </h3>
+    </div>
+  </body>
+</html>

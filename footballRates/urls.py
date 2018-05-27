@@ -5,7 +5,7 @@ from django.views.generic import DetailView, ListView, UpdateView
 from django.views.generic.base import TemplateView
 from models import Match, MatchEnded, Player, Pronostic, Cronica, PlayerValoration
 # from forms import PronosticForm, CronicaForm, PlayerValorationForm
-from views import MatchDetailView, MatchEndedDetailView, PlayerDetailView, pronostic, cronica, playervaloration
+from views import MatchDetailView, MatchEndedDetailView, PlayerDetailView, pronostic, cronica, playervaloration, pronosticEdited
 from views import editPronostic, editCronica, editPlayerValoration
 from views import deletePronostic, deleteCronica, deletePlayerValoration
 
@@ -53,7 +53,7 @@ urlpatterns = [
 
     ##################################################
 
-    url(r'^matches/(?P<pk>\d+)/pronostics/create/$',
+    url(r'^matches/(?P<pk>\d+)pronostics/create/$',
         pronostic,
         name='pronostics_create'),
 
@@ -71,6 +71,10 @@ urlpatterns = [
     url(r'^matches/(?P<pk>\d+)/pronostics/edit/$',
         editPronostic,
         name='pronostics_edit'),
+
+    url(r'^matches/(?P<pk>\d+)/pronostics/edited/$',
+        pronosticEdited,
+        name='pronostics_edited'),
 
     url(r'^matchesEnded/(?P<pk>\d+)/cronica/edit/$',
         editCronica,
