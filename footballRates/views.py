@@ -127,7 +127,7 @@ def playervaloration(request, pk):
 
 def editPronostic(request, pk):
     pronostic = get_object_or_404(Pronostic, pk=pk)
-    return HttpResponseRedirect('footballRates:editpronostic', args=(pronostic.id,))
+    return render (request, 'editpronostic.html')
 
 
 def editCronica(request, pk):
@@ -145,6 +145,18 @@ def deletePronostic(request, pk):
     pronostic.delete()
     return render(request, 'delete.html')
 
+def deletePronosticEdit(request, pk, pk2):
+    pronostic = get_object_or_404(Pronostic, pk2=pk)
+    pronostic.delete()
+    matchActual = get_object_or_404(Match, pk=pk)
+    pronostic = Pronostic(
+        comment=request.POST['comment'],
+        pronosticPartit=request.POST['pronosticPartit'],
+        match=matchActual,
+        usuari=request.user
+    )
+    pronostic.save()
+    return render(request, 'edit.html')
 
 def deleteCronica(request, pk):
     cronica = get_object_or_404(Cronica, pk=pk)

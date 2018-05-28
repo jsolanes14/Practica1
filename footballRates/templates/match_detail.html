@@ -50,29 +50,48 @@
             <td>{{pronostic.pronosticPartit}}</td>
             <td>{{pronostic.comment}}</td>
             {% if user == pronostic.usuari %}
-              <td><a href="{%  url  'footballRates:pronostics_edit'  pronostic.id  %}">edit</a></td>
               <td><a href="{%  url  'footballRates:pronostic_delete'  pronostic.id  %}">delete</a></td>
             {% endif %}
           </tr>
         {%  endfor  %}
       </table>
 
-
-      <h3>Afegir Pronostic</h3>
-      <form action="{% url 'footballRates:pronostics_create' match.id %}" method="post">
-        {%  csrf_token  %}
-          Comentari:  <textarea  name="comment"  id="comment"  rows="2"></textarea>
-      <div>
-        <fieldset>
-          <input type="radio" id="1" name="pronosticPartit" value="1"><label for="1">Local</label>
-          <input type="radio" id="2" name="pronosticPartit" value="0"><label for="2">Empat</label>
-          <input type="radio" id="3" name="pronosticPartit" value="2"><label for="3">Visitant</label>
-        </fieldset>
-      </div>
-      <div>
-          <button class="btn btn-success" type="submit">Afegir Pronostic</button>
-      </div>
-      </form>
+      {% if user.is_authenticated %}
+        {% for pronostic  in  match.pronostic_set.all  %}
+        {% if user == pronostic.usuari %}
+          <h3>Editar Pronostic</h3>
+          <form action="{% url 'footballRates:pronostic_delete_edit' match.id pronostic.id %}" method="post">
+            {%  csrf_token  %}
+              Comentari:  <textarea  name="comment"  id="comment"  rows="2"></textarea>
+          <div>
+            <fieldset>
+              <input type="radio" id="1" name="pronosticPartit" value="1"><label for="1">Local</label>
+              <input type="radio" id="2" name="pronosticPartit" value="0"><label for="2">Empat</label>
+              <input type="radio" id="3" name="pronosticPartit" value="2"><label for="3">Visitant</label>
+            </fieldset>
+          </div>
+          <div>
+              <button class="btn btn-success" type="submit">Afegir Pronostic</button>
+          </div>
+          </form>
+        {% endif %}
+        {% endfor %}
+          <h3>Afegir Pronostic</h3>
+          <form action="{% url 'footballRates:pronostics_create' match.id %}" method="post">
+            {%  csrf_token  %}
+              Comentari:  <textarea  name="comment"  id="comment"  rows="2"></textarea>
+          <div>
+            <fieldset>
+              <input type="radio" id="1" name="pronosticPartit" value="1"><label for="1">Local</label>
+              <input type="radio" id="2" name="pronosticPartit" value="0"><label for="2">Empat</label>
+              <input type="radio" id="3" name="pronosticPartit" value="2"><label for="3">Visitant</label>
+            </fieldset>
+          </div>
+          <div>
+              <button class="btn btn-success" type="submit">Afegir Pronostic</button>
+          </div>
+          </form>
+      {% endif %}
 
       {%  block  footer  %}
       {% endblock %}
