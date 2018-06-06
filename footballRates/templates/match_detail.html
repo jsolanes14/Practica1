@@ -1,34 +1,6 @@
+{% extends "base.html" %}
 {%  load  staticfiles  %}
-<!DOCTYPE  html>
-<html>
-  <head>
-    <title>MATCH DETAIL</title>
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="{% static 'css/base.css' %}">
-    <link  rel="stylesheet"  href="{%  static  "style/base.css"  %}"  />
-  </head>
-  <body>
-    <div = class="page-header">
-      <h1>Football Rates</h1>
-      {%  block  header  %}
-        {%  if  user.username  %}
-            <h2><p>User:  {{  user.username  }}  |  <a class="logout" href="{%  url  'logout'  %}?next={{request.path}}">logout</a>
-            </p></h2>
-        {%  else  %}
-            <p><a class="logout" href="{%  url  'login'  %}?next={{request.path}}">login</a></p>
-        {%  endif  %}
-      {%  endblock  %}
-    </div>
-    <div class="menu_bar">
-      <ul class="noselect">
-        <a class="botton" href="/" target="_self">Home</a>
-        <a class="botton" href="http://127.0.0.1:8000/matches/" target="_self">Partits per jugar</a>
-        <a class="botton" href="http://127.0.0.1:8000/matchesEnded/" target="_self">Partits acabats</a>
-        <a class="botton" href="http://127.0.0.1:8000/players/" target="_self">Jugadors</a>
-      </ul>
-
-    </div>
+{% block content %}
     <div  id="post" class="post">
 
 
@@ -57,25 +29,6 @@
       </table>
 
       {% if user.is_authenticated %}
-        {% for pronostic  in  match.pronostic_set.all  %}
-        {% if user == pronostic.usuari %}
-          <h3>Editar Pronostic</h3>
-          <form action="{% url 'footballRates:pronostic_delete_edit' match.id pronostic.id %}" method="post">
-            {%  csrf_token  %}
-              Comentari:  <textarea  name="comment"  id="comment"  rows="2"></textarea>
-          <div>
-            <fieldset>
-              <input type="radio" id="1" name="pronosticPartit" value="1"><label for="1">Local</label>
-              <input type="radio" id="2" name="pronosticPartit" value="0"><label for="2">Empat</label>
-              <input type="radio" id="3" name="pronosticPartit" value="2"><label for="3">Visitant</label>
-            </fieldset>
-          </div>
-          <div>
-              <button class="btn btn-success" type="submit">Afegir Pronostic</button>
-          </div>
-          </form>
-        {% endif %}
-        {% endfor %}
           <h3>Afegir Pronostic</h3>
           <form action="{% url 'footballRates:pronostics_create' match.id %}" method="post">
             {%  csrf_token  %}
@@ -92,9 +45,4 @@
           </div>
           </form>
       {% endif %}
-
-      {%  block  footer  %}
-      {% endblock %}
-    </div>
-  </body>
-</html>
+{% endblock %}

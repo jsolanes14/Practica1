@@ -5,13 +5,12 @@ from django.views.generic import DetailView, ListView, UpdateView
 from django.views.generic.base import TemplateView
 from models import Match, MatchEnded, Player, Pronostic, Cronica, PlayerValoration
 # from forms import PronosticForm, CronicaForm, PlayerValorationForm
-from views import MatchDetailView, MatchEndedDetailView, PlayerDetailView, pronostic, cronica, playervaloration, pronosticEdited
-from views import editPronostic, editCronica, editPlayerValoration, deletePronosticEdit
+from views import MatchDetailView, MatchEndedDetailView, PlayerDetailView, pronostic, cronica, playervaloration
 from views import deletePronostic, deleteCronica, deletePlayerValoration
 
 urlpatterns = [
-    url(r'^$', TemplateView.as_view(template_name='base.html'), name='home'),
-    url(r'^home/$', TemplateView.as_view(template_name='base.html'), name='home'),
+    url(r'^$', TemplateView.as_view(template_name='mainpage.html'), name='home'),
+    url(r'^home/$', TemplateView.as_view(template_name='mainpage.html'), name='home'),
 
     ###################################################
 
@@ -65,31 +64,11 @@ urlpatterns = [
         playervaloration,
         name='playersvaloration_create'),
 
-
-    ##################################################
-
-    url(r'^matches/(?P<pk>\d+)/pronostics/edited/$',
-        pronosticEdited,
-        name='pronostics_edited'),
-
-    url(r'^matchesEnded/(?P<pk>\d+)/cronica/edit/$',
-        editCronica,
-        name='cronica_edit'),
-
-    url(r'^matches/(?P<pk>\d+)/playervaloration/edit/$',
-        editPlayerValoration,
-        name='playervaloration_edit'),
-
     ##################################################
 
     url(r'^matches/(?P<pk>\d+)/pronostic/delete/$',
         deletePronostic,
         name='pronostic_delete'),
-
-    url(r'^matches/(?P<pk>\d+)/(?P<pk2>\d+)/pronostic/edit/$',
-        deletePronosticEdit,
-        name='pronostic_delete_edit'),
-
 
 
     url(r'^matcesEnded/(?P<pk>\d+)/cronica/delete/$',
@@ -100,5 +79,6 @@ urlpatterns = [
     url(r'^matches/(?P<pk>\d+)/playervaloration/delete/$',
         deletePlayerValoration,
         name='playervaloration_delete'),
+
 
 ]
