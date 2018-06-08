@@ -43,6 +43,8 @@ class MatchEnded(models.Model):
     def __unicode__(self):
         return str(self.match) + " RESULTAT: " + str(self.golslocal) + "-" + str(self.golsvisitant)
 
+    def get_absolute_url(self):
+        return reverse('footballRates:matchEnded_detail', kwargs={'pk': self.pk})
 
 class Cronica(models.Model):
     id = models.AutoField(primary_key=True)
@@ -53,7 +55,6 @@ class Cronica(models.Model):
 
     def __unicode__(self):
         return "Cronica de " + str(self.user) + " del partit " + str(self.match)
-
 
 class Player(models.Model):
     nom = models.TextField(max_length=30, default="")
@@ -67,6 +68,10 @@ class Player(models.Model):
 
     def __unicode__(self):
         return "Jugador: " + self.nom + " del " + self.equip
+
+    def get_absolute_url(self):
+        return reverse('footballRates:player_detail', kwargs={'pk': self.pk})
+
 
 
 class PlayerValoration(models.Model):

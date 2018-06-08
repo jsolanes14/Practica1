@@ -6,9 +6,9 @@
 
       <h3>Detalls Partit</h3>
       <table>
-      <th>{{matchEnded.match}}</th>
-      <td>{{matchEnded.golslocal}}</td>
-      <td>{{matchEnded.golsvisitant}}</td>
+        <th>{{matchEnded.id}}</th>
+        <td>{{MatchEnded.golslocal}}</td>
+        <td>{{MatchEnded.golsvisitant}}</td>
       </table>
 
 
@@ -19,7 +19,6 @@
             <th>{{cronica.usuari}}</th>
             <td>{{cronica.comment}}</td>
             {% if user == cronica.user %}
-              <td><a href="{%  url  'footballRates:cronica_edit'  cronica.id  %}">edit</a></td>
               <td><a href="{%  url  'footballRates:cronica_delete'  cronica.id  %}">delete</a></td>
             {% endif %}
           </tr>
@@ -27,6 +26,15 @@
       </table>
 
 
-
-      <h3>Afegir Cronica</h3>
+      {% if user.is_authenticated %}
+        <h3>Afegir Cronica</h3>
+        <form action="{% url 'footballRates:cronica_create' matchEnded.id %}" method="post">
+        {%  csrf_token  %}
+          Comentari:  <textarea  name="comment"  id="comment"  rows="2"></textarea>
+          <div>
+              <button class="btn btn-success" type="submit">Afegir Pronostic</button>
+          </div>
+        </form>
+      {% endif %}
+    </div>
 {% endblock %}

@@ -96,7 +96,8 @@ def cronica(request, pk):
     matchEndedActual = get_object_or_404(MatchEnded, pk=pk)
     cronica = Cronica(
         comment=request.POST['comment'],
-        matchEnded=matchEndedActual
+        match=matchEndedActual,
+        user=request.user
     )
     cronica.save()
     return HttpResponseRedirect(reverse('footballRates:matchEnded_detail', args=(matchEndedActual.id,)))

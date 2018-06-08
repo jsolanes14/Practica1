@@ -3,29 +3,28 @@
 {% block content %}
     <div  id="post" class="post">
 
-<ul vocab ="http://schema.org/" typeof="SportsEvent">
+<ul vocab ="http://schema.org/" typeof="Question">
     <h3>Detalls Partit</h3>
     <table>
-        <th><span property="superEvent">{{match.competicio}}</span></th>
-        <td><span property="homeTeam">{{match.local}}</span></td>
-        <td><span property="awayTeam">{{match.visitant}}</span></td>
-        <td><span property="subEvent">Jornada: {{match.jornada}}</span></td>
+        <th><span property="name">{{match.competicio}}</span></th>
+        <td><span property="sourceOrganization">{{match.local}}</span></td>
+        <td><span property="sourceOrganization">{{match.visitant}}</span></td>
+        <td><span property="identifier">Jornada: {{match.jornada}}</span></td>
       </table>
-<ul rel="Pronostic">
-    <li typeof="Question">
-        <h3>Llista de Pronostics</h3>
-        <table>
-            {%  for  pronostic  in  match.pronostic_set.all  %}
-                  <tr>
-                  <th><span property="author">{{pronostic.usuari}}</span></th>
-                  <td><span property="description">{{pronostic.comment}}</span></td>
-                  <td><span property="acceptedAnswer">{{pronostic.pronosticPartit}}</span></td>
-                  {% if user == pronostic.usuari %}
-                      <td><a href="{%  url  'footballRates:pronostic_delete'  pronostic.id  %}">delete</a></td>
-                  {% endif %}
-                </tr>
-            {%  endfor  %}
-          </table>
+
+    <h3>Llista de Pronostics</h3>
+    <ul rel="suggestedAnswer">
+        {%  for  pronostic  in  match.pronostic_set.all  %}
+            <li typeof="Answer">
+                <span property="acceptedAnswer">{{pronostic.pronosticPartit}}</span>
+                <span property="name">{{pronostic.usuari}}</span>
+                <span property="description">{{pronostic.comment}}</span>
+                {% if user == pronostic.usuari %}
+                    <a href="{%  url  'footballRates:pronostic_delete'  pronostic.id  %}">delete</a>
+                {% endif %}
+              </li>
+        {%  endfor  %}
+    </ul>
     {% if user.is_authenticated %}
         <h3>Afegir Pronostic</h3>
         <form action="{% url 'footballRates:pronostics_create' match.id %}" method="post">

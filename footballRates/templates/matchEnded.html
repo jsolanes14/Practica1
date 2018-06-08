@@ -2,8 +2,6 @@
 {%  load  staticfiles  %}
 {% block content %}
     <div  id="post" class="post">
-
-
       <ul>
         <table>
           <tr>
@@ -12,18 +10,13 @@
             <th>Gols visitants</th>
           </tr>
           {% for matchEnded in matchEnded_list %}
-          <tr>
-            <td><a href="{{matchEnded.id}}/">{{matchEnded.match}}</td>
-            <td>{{matchEnded.golslocal}}</td>
-            <td>{{matchEnded.golsvisitant}}</td>
-          </tr>
+            <tr>
+              <td><a href="{{matchEnded.id}}/">{{matchEnded.match}}</td>
+              <td>{{matchEnded.golslocal}}</td>
+              <td>{{matchEnded.golsvisitant}}</td>
+            </tr>
           {% endfor %}
         </table>
       </ul>
     </div>
-
-    <div  id="footer">
-        {%  block  footer  %}
-
-        {%  endblock  %}
 {%  endblock  %}
