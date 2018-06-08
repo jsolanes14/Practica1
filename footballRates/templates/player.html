@@ -5,7 +5,6 @@
       <ul>
         <table>
           <tr>
-            <!-- <th> = calçalera -->
             <th>Nom</th>
             <th>Equip</th>
             <th>Edat</th>
@@ -16,26 +15,10 @@
             <td>{{p.equip}}</td>
             <td>{{p.edat}}</td>
 
-
           </tr>
           {% endfor %}
         </table>
       </ul>
     </div>
 
-
-    <div  id="content">
-    {%  block  content  %}
-    {%  if  error_message  %}
-        <p>
-            <strong>{{  error_message  }}</strong>
-        </p>
-    {%  endif  %}
-    {%  endblock  %}
-    </div>
-    <div  id="footer">
-        {%  block  footer  %}
-
-        {%  endblock  %}
-    </div>
 {%  endblock  %}

@@ -3,37 +3,35 @@
 {% block content %}
     <div  id="post" class="post">
 
-
-      <h3>Detalls Partit</h3>
-      <table>
-        <th>{{match.competicio}}</th>
-        <td>{{match.local}}</td>
-        <td>{{match.visitant}}</td>
-        <td>Jornada: {{match.jornada}}</td>
+<ul vocab ="http://schema.org/" typeof="SportsEvent">
+    <h3>Detalls Partit</h3>
+    <table>
+        <th><span property="superEvent">{{match.competicio}}</span></th>
+        <td><span property="homeTeam">{{match.local}}</span></td>
+        <td><span property="awayTeam">{{match.visitant}}</span></td>
+        <td><span property="subEvent">Jornada: {{match.jornada}}</span></td>
       </table>
-      <br></br>
-
-
-      <h3>Llista de Pronostics</h3>
-      <table>
-        {%  for  pronostic  in  match.pronostic_set.all  %}
-          <tr>
-            <th>{{pronostic.usuari}}</th>
-            <td>{{pronostic.pronosticPartit}}</td>
-            <td>{{pronostic.comment}}</td>
-            {% if user == pronostic.usuari %}
-              <td><a href="{%  url  'footballRates:pronostic_delete'  pronostic.id  %}">delete</a></td>
-            {% endif %}
-          </tr>
-        {%  endfor  %}
-      </table>
-
-      {% if user.is_authenticated %}
-          <h3>Afegir Pronostic</h3>
-          <form action="{% url 'footballRates:pronostics_create' match.id %}" method="post">
-            {%  csrf_token  %}
-              Comentari:  <textarea  name="comment"  id="comment"  rows="2"></textarea>
-          <div>
+<ul rel="Pronostic">
+    <li typeof="Question">
+        <h3>Llista de Pronostics</h3>
+        <table>
+            {%  for  pronostic  in  match.pronostic_set.all  %}
+                  <tr>
+                  <th><span property="author">{{pronostic.usuari}}</span></th>
+                  <td><span property="description">{{pronostic.comment}}</span></td>
+                  <td><span property="acceptedAnswer">{{pronostic.pronosticPartit}}</span></td>
+                  {% if user == pronostic.usuari %}
+                      <td><a href="{%  url  'footballRates:pronostic_delete'  pronostic.id  %}">delete</a></td>
+                  {% endif %}
+                </tr>
+            {%  endfor  %}
+          </table>
+    {% if user.is_authenticated %}
+        <h3>Afegir Pronostic</h3>
+        <form action="{% url 'footballRates:pronostics_create' match.id %}" method="post">
+        {%  csrf_token  %}
+            Comentari:  <textarea  name="comment"  id="comment"  rows="2"></textarea>
+              <div>
             <fieldset>
               <input type="radio" id="1" name="pronosticPartit" value="1"><label for="1">Local</label>
               <input type="radio" id="2" name="pronosticPartit" value="0"><label for="2">Empat</label>
