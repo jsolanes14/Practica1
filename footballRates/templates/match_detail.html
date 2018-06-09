@@ -1,30 +1,80 @@
+match_detail.html
+Avui
+16:40
+A
+Arnau Castells ha afegit 1 element a
+Carpeta de Google Drive
+Web
+Elements afegits:
+HTML
+match_detail.html
+16:39
+A
+Arnau Castells ha penjat 1 element
+HTML
+match_detail.html
+
 {% extends "base.html" %}
 {%  load  staticfiles  %}
 {% block content %}
     <div  id="post" class="post">
 
-<ul vocab ="http://schema.org/" typeof="Question">
+<ul vocab ="http://schema.org/" typeof="SportsEvent">
     <h3>Detalls Partit</h3>
     <table>
         <th><span property="name">{{match.competicio}}</span></th>
-        <td><span property="sourceOrganization">{{match.local}}</span></td>
-        <td><span property="sourceOrganization">{{match.visitant}}</span></td>
+        <td><span property="homeTeam">{{match.local}}</span></td>
+        <td><span property="awayTeam">{{match.visitant}}</span></td>
         <td><span property="identifier">Jornada: {{match.jornada}}</span></td>
+        <td><span property="startDate">{{match.data}}</span></td>
+
+        <span property="description" content="partit"> </span>
+        <span property="endDate" content="2018-06-08"> </span>
+        <span property="image" content="http://files.laliga.es/seccion_logos/laliga-h-1200x1200_2018.jpg"> </span>
+        <span property="performer" content="{{match.local}} & {{match.visitant}}"> </span>
+
+        <td> <span property="location" typeof="City">
+          Jugat a <span property="address">{{match.local}}</span>
+          <span property="name" content ="Spain"></span>
+        </td>
+
       </table>
 
+
     <h3>Llista de Pronostics</h3>
-    <ul rel="suggestedAnswer">
+
+    {% if match.pronostic_set.all|length > 0 %}
+
+    <span rel="aggregateRating">
+      <span typeof="AggregateRating">
+        <span property="ratingValue" content="0-1-2"> </span>
+        {% with match.pronostic_set.all|length as reviewCount %}
+          from <span property="reviewCount" content="{{reviewCount}}"> </span>
+        {% endwith %}
+      </span>
+    </span>
+
+    <ul rel="review">
         {%  for  pronostic  in  match.pronostic_set.all  %}
-            <li typeof="Answer">
-                <span property="acceptedAnswer">{{pronostic.pronosticPartit}}</span>
-                <span property="name">{{pronostic.usuari}}</span>
-                <span property="description">{{pronostic.comment}}</span>
+            <li typeof="Review">
+              <span rel="reviewRating" typeof="Rating">
+                <span property="ratingValue">{{pronostic.pronosticPartit}}</span>
+              </span>
+                <span property="author">{{pronostic.usuari}}</span>
+                <span property="reviewBody">{{pronostic.comment}}</span>
+                <span property="identifier">{{pronostic.id}}</span>
+
                 {% if user == pronostic.usuari %}
                     <a href="{%  url  'footballRates:pronostic_delete'  pronostic.id  %}">delete</a>
                 {% endif %}
               </li>
         {%  endfor  %}
     </ul>
+
+    {% endif %}
+
+
+    <br> </br>
     {% if user.is_authenticated %}
         <h3>Afegir Pronostic</h3>
         <form action="{% url 'footballRates:pronostics_create' match.id %}" method="post">
