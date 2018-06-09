@@ -12,7 +12,7 @@
         <td><span property="identifier">Jornada: {{match.jornada}}</span></td>
         <td><span property="startDate">{{match.data}}</span></td>
 
-        <span property="description" content="partit"> </span>
+        <span property="description" content="Partit de futbol professional"> </span>
         <span property="endDate" content="2018-06-08"> </span>
         <span property="image" content="http://files.laliga.es/seccion_logos/laliga-h-1200x1200_2018.jpg"> </span>
         <span property="performer" content="{{match.local}} & {{match.visitant}}"> </span>
@@ -33,7 +33,7 @@
       <span typeof="AggregateRating">
         <span property="ratingValue" content="0-1-2"> </span>
         {% with match.pronostic_set.all|length as reviewCount %}
-          <span property="reviewCount" content="{{reviewCount}}"> </span>
+          from <span property="reviewCount" content="{{reviewCount}}"> </span>
         {% endwith %}
       </span>
     </span>
