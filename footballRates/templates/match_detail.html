@@ -33,7 +33,7 @@
       <span typeof="AggregateRating">
         <span property="ratingValue" content="0-1-2"> </span>
         {% with match.pronostic_set.all|length as reviewCount %}
-          from <span property="reviewCount" content="{{reviewCount}}"> </span>
+          <span property="reviewCount" content="{{reviewCount}}"> </span>
         {% endwith %}
       </span>
     </span>
